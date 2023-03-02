@@ -17,7 +17,7 @@ def parse_args():
     parser.add_argument('-ir', '--iam_reset', action='store_true', help='Reset a user password (outputs a password)')
     parser.add_argument('-id', '--iam_dis', action='store_true', help='Disable keys and console access for a user')
     parser.add_argument('-ld', '--lmbd_dis', action='store_true', help='Disables a Lambda function')
-    parser.add_argument('-rp', '--rds_priv', action='store_true', help='Sets a RDS database as private')
+    #parser.add_argument('-rp', '--rds_priv', action='store_true', help='Sets a RDS database as private')
     parser.add_argument('-sp', '--s3_priv', action='store_true', help='Sets a S3 as private')
 
     # All potential IDs to pass
@@ -25,7 +25,7 @@ def parse_args():
     parser.add_argument('-i', '--instance', type=str, help='ID of the EC2 instance to stop')
     parser.add_argument('-v', '--volume', type=str, help='ID of the volume to backup')
     parser.add_argument('-f', '--function', type=str, help='Name of the function to disable')
-    parser.add_argument('-d', '--database', type=str, help='Name of the database to set as private')
+    #parser.add_argument('-d', '--database', type=str, help='Name of the database to set as private')
     parser.add_argument('-b', '--bucket', type=str, help='Name of the bucket to set as private')
 
     return parser.parse_args()

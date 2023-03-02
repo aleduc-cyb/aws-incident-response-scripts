@@ -1,0 +1,21 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "SOCActions",
+            "Effect": "Allow",
+            "Action": [
+                "iam:UpdateLoginProfile",
+                "s3:PutBucketPublicAccessBlock",
+                "ec2:CreateTags",
+                "ec2:CreateSnapshot",
+                "iam:UpdateAccessKey",
+                "ec2:StopInstances",
+                "iam:DeleteLoginProfile",
+                "iam:ListAccessKeys",
+                "lambda:PutFunctionConcurrency"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
