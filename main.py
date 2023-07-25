@@ -1,5 +1,6 @@
 import argparse
 import scripts.ec2_stop_instance as ec2stop
+import scripts.ec2_isolate_vm as ec2isol
 import scripts.ec2_take_snapshot as ec2snap
 import scripts.iam_reset_password as iamreset
 import scripts.iam_revoke_accesses as iamdis
@@ -17,15 +18,16 @@ def parse_args():
     parser.add_argument('-ir', '--iam_reset', action='store_true', help='Reset a user password (outputs a password)')
     parser.add_argument('-id', '--iam_dis', action='store_true', help='Disable keys and console access for a user')
     parser.add_argument('-ld', '--lmbd_dis', action='store_true', help='Disables a Lambda function')
-    #parser.add_argument('-rp', '--rds_priv', action='store_true', help='Sets a RDS database as private')
+    parser.add_argument('-rp', '--rds_priv', action='store_true', help='Sets a RDS database as private')
     parser.add_argument('-sp', '--s3_priv', action='store_true', help='Sets a S3 as private')
+    parser.add_argument('-ei', '--ec2_isol', action='store_true', help='Isolates a VM by creating a security group')
 
     # All potential IDs to pass
     parser.add_argument('-u', '--username', type=str, help='Name of the user to investigate')
     parser.add_argument('-i', '--instance', type=str, help='ID of the EC2 instance to stop')
     parser.add_argument('-v', '--volume', type=str, help='ID of the volume to backup')
     parser.add_argument('-f', '--function', type=str, help='Name of the function to disable')
-    #parser.add_argument('-d', '--database', type=str, help='Name of the database to set as private')
+    parser.add_argument('-d', '--database', type=str, help='Name of the database to set as private')
     parser.add_argument('-b', '--bucket', type=str, help='Name of the bucket to set as private')
 
     return parser.parse_args()
@@ -42,7 +44,7 @@ def main():
 
 
 def input_checks(args):
-    if args.ec2_stop and not (args.instance):
+    if (args.ec2_stop or args.ec2_isol) and not (args.instance):
         print("Please specify an instance")
         exit()
 
@@ -73,6 +75,9 @@ def input_checks(args):
 def run_actions(args):
     if args.ec2_stop:
         ec2stop.main(args.instance)
+    
+    if args.ec2_isol:
+        ec2isol.main(args.instance)
 
     if args.ec2_snap:
         ec2snap.main(args.volume)
